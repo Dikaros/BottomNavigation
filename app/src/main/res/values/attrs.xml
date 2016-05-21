@@ -7,6 +7,10 @@
             <enum name="no_image" value="2"></enum>
             <enum name="check_show_text" value="3"></enum>
         </attr>
+        <attr name="textCheckedColor" format="color"/>
+        <attr name="textUnCheckedColor" format="color"/>
     </declare-styleable>
+
+
 
 </resources>

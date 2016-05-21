@@ -30,6 +30,12 @@ public class BottomNavigationBar extends LinearLayout {
         CHECKED_SHOW_TEXT //普通无文字 选中出现文字
     }
 
+    public static final int DEFAULT_UNCHECKED_IMAGE = R.drawable.ic_android_black_24dp;
+    public static final int DEFAULT_CHECKED_IMAGE = R.drawable.ic_android_green_24dp;
+
+    public static final int DEFAULT_CHECKED_TEXT = 0xff138768;
+    public static final int DEFAULT_UNCHECKED_TEXT = 0xff747575;
+
     NavShowType type = NavShowType.NORMAL;
 
 
@@ -67,11 +73,7 @@ public class BottomNavigationBar extends LinearLayout {
 
     public BottomNavigationBar(Context context, AttributeSet attrs) {
         super(context, attrs);
-    }
-
-    public BottomNavigationBar(Context context, AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
-        TypedArray a = context.getTheme().obtainStyledAttributes(attrs, R.styleable.BottomNavigationBar, defStyleAttr, 0);
+        TypedArray a = context.obtainStyledAttributes(attrs,R.styleable.BottomNavigationBar);
         String t = a.getString(R.styleable.BottomNavigationBar_show_type);
         if (t == null) {
             setType(NavShowType.NORMAL);
@@ -90,7 +92,15 @@ public class BottomNavigationBar extends LinearLayout {
 
             }
         }
+
+        textCheckdColor = a.getColor(R.styleable.BottomNavigationBar_textCheckedColor,textCheckdColor);
+        textUnCheckColor = a.getColor(R.styleable.BottomNavigationBar_textUnCheckedColor,textUnCheckColor);
         a.recycle();
+    }
+
+    public BottomNavigationBar(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+
     }
 
 
@@ -121,6 +131,8 @@ public class BottomNavigationBar extends LinearLayout {
         }
         item.setTextVisible(tv);
         item.setImageVisible(iv);
+        item.setTextCheckedColor(textCheckdColor);
+        item.setTextUnCheckedColor(textUnCheckColor);
         items.add(item);
         final int i = items.size() - 1;
         item.setOnClickListener(new OnClickListener() {
@@ -132,8 +144,8 @@ public class BottomNavigationBar extends LinearLayout {
                 boolean noChecked = index != currentChecked;
                 if (noChecked) {
                     //改变上一个view
-                    items.get(currentChecked).changeView(getContext());
-                    if (type==NavShowType.CHECKED_SHOW_TEXT) {
+                    items.get(currentChecked).changeView();
+                    if (type == NavShowType.CHECKED_SHOW_TEXT) {
                         items.get(currentChecked).setTextVisible(false);
                     }
                     currentChecked = index;
@@ -141,8 +153,8 @@ public class BottomNavigationBar extends LinearLayout {
                         onItemViewSelectedListener.onItemClcik(v, index);
                     }
                     //改变当前点击的view
-                    item.changeView(getContext());
-                    if (type==NavShowType.CHECKED_SHOW_TEXT) {
+                    item.changeView();
+                    if (type == NavShowType.CHECKED_SHOW_TEXT) {
                         item.setTextVisible(true);
                     }
 
@@ -151,12 +163,15 @@ public class BottomNavigationBar extends LinearLayout {
             }
         });
         addView(item);
-        item.showView();
         if (items.size() == 1) {
-            item.changeView(getContext());
+            item.changeView();
         }
-
+        item.showView();
     }
+
+    int textCheckdColor = DEFAULT_CHECKED_TEXT;
+    int textUnCheckColor=DEFAULT_UNCHECKED_TEXT;
+
 
 
     /**
@@ -165,21 +180,47 @@ public class BottomNavigationBar extends LinearLayout {
      * @param text
      */
     public void addItemView(String text, int textCheckdColor, int textUnCheckColor, int imageCheckedResource, int imageUnCheckedResource) {
-        NavigationItem item = new NavigationItem(getContext());
-        item.getmTextView().setText(text);
-        item.setTextCheckedColor(textCheckdColor);
-        item.setTextUnCheckedColor(textUnCheckColor);
-        item.setImageCheckedResource(imageCheckedResource);
-        item.setImageUnCheckedResource(imageUnCheckedResource);
-        addItemView(item);
-    }
-
-    public void addItemView(String text) {
-        NavigationItem item = new NavigationItem(getContext());
+        NavigationItem item = new NavigationItem(getContext(), textCheckdColor, textUnCheckColor, imageCheckedResource, imageUnCheckedResource);
         item.getmTextView().setText(text);
         addItemView(item);
     }
 
+    public void setTextColor(int checkedColor,int unCheckedColor){
+        this.textCheckdColor = checkedColor;
+        this.textUnCheckColor = unCheckedColor;
+        for (NavigationItem item:items){
+            item.setTextCheckedColor(checkedColor);
+            item.setTextUnCheckedColor(unCheckedColor);
+            item.showView();
+        }
+    }
+
+    public void setTextColor(int checkedColor){
+        this.textCheckdColor = checkedColor;
+        for (NavigationItem item:items){
+                item.setTextCheckedColor(checkedColor);
+                item.setTextUnCheckedColor(textUnCheckColor);
+                item.showView();
+        }
+    }
+
+    public void setTextColorRes(int checkedColorId,int unCheckedColorId){
+        setTextColor(getResources().getColor(checkedColorId),getResources().getColor(unCheckedColorId));
+    }
+
+    public void setTextColorRes(int checkedColorId){
+        setTextColor(getResources().getColor(checkedColorId));
+    }
+
+//    public void addItemView(String text) {
+//        NavigationItem item = new NavigationItem(getContext(), textCheckdColor, textUnCheckColor, DEFAULT_CHECKED_IMAGE, DEFAULT_UNCHECKED_IMAGE);
+//        item.getmTextView().setText(text);
+//        addItemView(item);
+//    }
+
+    public void addItemView(String text,int imageCheckedResource, int imageUnCheckedResource){
+        addItemView(text,textCheckdColor,textUnCheckColor,imageCheckedResource,imageUnCheckedResource);
+    }
 
 
     OnItemViewSelectedListener onItemViewSelectedListener;

@@ -3,6 +3,7 @@ package com.dikaros.navigation.widget;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Canvas;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Gravity;
@@ -21,29 +22,30 @@ import java.util.ArrayList;
  * Created by Dikaros on 2016/5/20.
  */
 public class NavigationItem extends LinearLayout {
-    public NavigationItem(Context context) {
+    public NavigationItem(Context context, int textCheckedColor, int textUnCheckedColor, int imageCheckedResource, int imageUnCheckedResource) {
         super(context);
         initDefaultValue();
-        setOrientation(VERTICAL);
         initViews(context);
+        this.textCheckedColor = textCheckedColor;
+        this.textUnCheckedColor = textUnCheckedColor;
+        this.imageUnCheckedResource = imageUnCheckedResource;
+        this.imageCheckedResource = imageCheckedResource;
         addView(mImageView);
         addView(mTextView);
-        imageCheckedResource = R.drawable.ic_android_green_24dp;
-        imageUnCheckedResource = R.drawable.ic_android_black_24dp;
+
+
     }
 
 
     private void initDefaultValue() {
         imageWidth = 24;
-        imageHeight=24;
+        imageHeight = 24;
         textSize = 12;
         imagePaddingTop = 8;
-        textPaddingBottom =10;
-        textCheckedColor = 0xff138768;
-        textUnCheckedColor = 0xff747575;
+        textPaddingBottom = 10;
+
 
     }
-
 
 
     public void setChecked(boolean checked) {
@@ -53,21 +55,22 @@ public class NavigationItem extends LinearLayout {
     boolean textVisible = true;
     boolean imageVisible = true;
 
+
     public void setTextSize(int textSize) {
         this.textSize = textSize;
     }
 
     public void setTextVisible(boolean textVisible) {
         this.textVisible = textVisible;
-        mTextView.setVisibility(textVisible? VISIBLE:GONE);
-        if (!textVisible){
-            Log.e("textView","消失");
+        mTextView.setVisibility(textVisible ? VISIBLE : GONE);
+        if (!textVisible) {
+            Log.e("textView", "消失");
         }
     }
 
     public void setImageVisible(boolean imageVisible) {
         this.imageVisible = imageVisible;
-        mImageView.setVisibility(imageVisible?VISIBLE:GONE);
+        mImageView.setVisibility(imageVisible ? VISIBLE : GONE);
     }
 
     public boolean isImageVisible() {
@@ -86,31 +89,34 @@ public class NavigationItem extends LinearLayout {
         return mImageView;
     }
 
-    private void initViews(final Context context){
+    private void initViews(final Context context) {
+
+        setOrientation(VERTICAL);
+
         //初始化view
         mTextView = new TextView(context);
         mImageView = new ImageView(context);
         //设置veiw是否可见
-        mTextView.setVisibility(textVisible? VISIBLE:GONE);
-        mImageView.setVisibility(imageVisible?VISIBLE:GONE);
+        mTextView.setVisibility(textVisible ? VISIBLE : GONE);
+        mImageView.setVisibility(imageVisible ? VISIBLE : GONE);
         //设置默认文字
         mTextView.setText("text");
         //设置默认文字大小
         mTextView.setTextSize(textSize);
         //设置内边距
-        setPadding(0,DensityUtil.dip2px(context,imagePaddingTop),0,DensityUtil.dip2px(context,textPaddingBottom));
+        setPadding(0, DensityUtil.dip2px(context, imagePaddingTop), 0, DensityUtil.dip2px(context, textPaddingBottom));
         //设置自身布局
         setGravity(Gravity.CENTER);
         //设置text和image的布局参数
         LayoutParams textParams = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        LayoutParams imageParams = new LayoutParams(DensityUtil.dip2px(context,imageWidth), DensityUtil.dip2px(context,imageHeight));
+        LayoutParams imageParams = new LayoutParams(DensityUtil.dip2px(context, imageWidth), DensityUtil.dip2px(context, imageHeight));
         mTextView.setLayoutParams(textParams);
         mImageView.setLayoutParams(imageParams);
 
         //设置最小宽度
-        setMinimumWidth(DensityUtil.dip2px(context,80));
+        setMinimumWidth(DensityUtil.dip2px(context, 80));
         //设置本身的布局
-        LinearLayout.LayoutParams selfParam = new LayoutParams(DensityUtil.dip2px(context,0), DensityUtil.dip2px(context,56),1f);
+        LinearLayout.LayoutParams selfParam = new LayoutParams(DensityUtil.dip2px(context, 0), DensityUtil.dip2px(context, 56), 1f);
         setLayoutParams(selfParam);
 
         //设置文字颜色
@@ -140,21 +146,18 @@ public class NavigationItem extends LinearLayout {
     int textPaddingBottom;
 
     int textCheckedColor;
-
     int textUnCheckedColor;
 
     int imageCheckedResource;
-
     int imageUnCheckedResource;
 
 
-
-    private void initCheckValue(){
+    private void initCheckValue() {
         imageWidth = 24;
-        imageHeight=24;
+        imageHeight = 24;
         textSize = 14;
         imagePaddingTop = 6;
-        textPaddingBottom =10;
+        textPaddingBottom = 10;
     }
 
     public void setImageCheckedResource(int imageCheckedResource) {
@@ -163,7 +166,6 @@ public class NavigationItem extends LinearLayout {
 
     public void setImageUnCheckedResource(int imageUnCheckedResource) {
         this.imageUnCheckedResource = imageUnCheckedResource;
-
     }
 
     public void setTextCheckedColor(int textCheckedColor) {
@@ -175,31 +177,21 @@ public class NavigationItem extends LinearLayout {
     }
 
 
-    public void showView(){
-        if (checked){
+    public void showView() {
+        if (checked) {
             initCheckValue();
             mTextView.setTextColor(textCheckedColor);
             mImageView.setImageResource(imageCheckedResource);
-        }else {
+        } else {
             initDefaultValue();
             mTextView.setTextColor(textUnCheckedColor);
             mImageView.setImageResource(imageUnCheckedResource);
         }
-    }
-
-    /**
-     * 更改View
-     * @param context
-     */
-    public void changeView(Context context){
-        checked=!checked;
-
-        showView();
+        mTextView.setVisibility(textVisible ? VISIBLE : GONE);
+        mImageView.setVisibility(imageVisible ? VISIBLE : GONE);
         mTextView.setTextSize(textSize);
-        setPadding(DensityUtil.dip2px(context,12),DensityUtil.dip2px(context,imagePaddingTop),DensityUtil.dip2px(context,12),DensityUtil.dip2px(context,textPaddingBottom));
-//        //设置veiw是否可见
-        mTextView.setVisibility(textVisible? VISIBLE:GONE);
-        mImageView.setVisibility(imageVisible?VISIBLE:GONE);
+        setPadding(DensityUtil.dip2px(getContext(), 12), DensityUtil.dip2px(getContext(), imagePaddingTop), DensityUtil.dip2px(getContext(), 12), DensityUtil.dip2px(getContext(), textPaddingBottom));
+
 
         //重绘
         postInvalidate();
@@ -207,7 +199,14 @@ public class NavigationItem extends LinearLayout {
         mTextView.postInvalidate();
     }
 
+    /**
+     * 更改View
+     *
+     */
+    public void changeView() {
+        checked = !checked;
+        showView();
 
-
+    }
 
 }

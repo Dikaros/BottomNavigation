@@ -12,6 +12,8 @@
         android:id="@+id/bnBar"
         android:layout_width="match_parent"
         android:layout_alignParentBottom="true"
+        app:textCheckedColor="@color/colorAccent"
+        app:show_type="no_image"
         android:layout_height="wrap_content">
 
     </com.dikaros.navigation.widget.BottomNavigationBar>
