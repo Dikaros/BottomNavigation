@@ -62,6 +62,7 @@ public class BottomNavigationBar extends LinearLayout {
         for (NavigationItem item : items) {
             item.setTextVisible(tv);
             item.setImageVisible(iv);
+            item.showView();
         }
         if (type == NavShowType.CHECKED_SHOW_TEXT) {
             items.get(currentChecked).setTextVisible(true);

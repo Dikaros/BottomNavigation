@@ -1,20 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/r_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/r_main"
     tools:context="com.dikaros.navigation.MainActivity">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/btn_change_0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="change1"
+            android:text="CHANGE_TO_NORMAL" />
+
+        <Button
+            android:id="@+id/btn_change_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="change2"
+
+            android:text="CHANGE_TO_NO_TEXT" />
+
+        <Button
+            android:id="@+id/btn_change_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:onClick="change3"
+            android:text="CHANGE_TO_NO_IMAGE" />
+
+        <Button
+            android:id="@+id/btn_change_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:onClick="change4"
+            android:text="CHANGE_TO_CHECK_SHOW_TEXT" />
+    </LinearLayout>
 
 
     <com.dikaros.navigation.widget.BottomNavigationBar
         android:id="@+id/bnBar"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        app:textCheckedColor="@color/colorAccent"
-        app:show_type="no_image"
-        android:layout_height="wrap_content">
+        app:show_type="no_image">
 
     </com.dikaros.navigation.widget.BottomNavigationBar>
 
