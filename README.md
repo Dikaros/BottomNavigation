@@ -1,4 +1,4 @@
-# BottomNavigation
+# BottomNavigation ver 0.1
 遵循Android Material Design的底部导航栏
 
 ##样式
