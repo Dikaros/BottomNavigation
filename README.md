@@ -2,14 +2,18 @@
 遵循Android Material Design的底部导航栏
 
 ##样式
-* NORMAL
-![image](https://github.com/Dikaros/BottomNavigation/screenshots/b_normal.jpg)
+* NORMAL<br/>
+![image](https://raw.githubusercontent.com/Dikaros/BottomNavigation/master/screenshots/b_normal.jpg)
 
-* NO_TEXT
+* NO_TEXT<br/>
+![image](https://raw.githubusercontent.com/Dikaros/BottomNavigation/master/screenshots/b_no_text.jpg)
 
-* NO_IMAGE
+* NO_IMAGE<br/>
+![image](https://raw.githubusercontent.com/Dikaros/BottomNavigation/master/screenshots/b_no_image.jpg)
 
-* CHECK_SHOW_TEXT
+* CHECK_SHOW_TEXT<br/>
+![image](https://raw.githubusercontent.com/Dikaros/BottomNavigation/master/screenshots/b_check_show_text.jpg)
+
 
 
 ##使用方法
