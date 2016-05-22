@@ -2,13 +2,14 @@
 遵循Android Material Design的底部导航栏
 
 ##样式
-*NORMAL
+* NORMAL
+![image](https://github.com/Dikaros/BottomNavigation/screenshots/b_normal.jpg)
 
-*NO_TEXT
+* NO_TEXT
 
-*NO_IMAGE
+* NO_IMAGE
 
-*CHECK_SHOW_TEXT
+* CHECK_SHOW_TEXT
 
 
 ##使用方法
