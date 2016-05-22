@@ -24,6 +24,47 @@
 * 实现回调方法
 
 
-```java
+> 在布局xml文件中放置,textCheckedColor是选中项字体的颜色,textUnChecked是未选中项字体的颜色
 
+```xml
+ <com.dikaros.navigation.widget.BottomNavigationBar
+        android:id="@+id/bnBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        app:textCheckedColor="@color/checked"
+        app:textUnCheckedColor="@color/unchecked"
+        app:show_type="no_image">
+    </com.dikaros.navigation.widget.BottomNavigationBar>
+```
+
+> 在java代码中为bar添加子项
+
+```java
+bottomNavigationBar = (BottomNavigationBar) findViewById(R.id.bnBar);
+        /*
+        add bottom navigation item
+        param1 bottom text
+        param2 bottom image checked
+        param3 bottom image unchecked
+         */
+        bottomNavigationBar.addItemView("Recents",R.drawable.ic_restore_green_24dp,R.drawable.ic_restore_black_24dp);
+        bottomNavigationBar.addItemView("Favorites", R.drawable.ic_insert_emoticon_check_24dp,R.drawable.ic_insert_emoticon_black_24dp);
+        bottomNavigationBar.addItemView("Nearby",R.drawable.ic_place_green_24dp,R.drawable.ic_place_black_24dp);
+```
+> 设置点击回调,以处理之后与ViewPager或Fragment的交互
+
+```java
+//set Callback
+        bottomNavigationBar.setOnItemViewSelectedListener(new BottomNavigationBar.OnItemViewSelectedListener() {
+            /**
+             * call when item clicked
+             * @param v clicked item
+             * @param index item index
+             */
+            @Override
+            public void onItemClcik(View v, int index) {
+
+            }
+        });
 ```
